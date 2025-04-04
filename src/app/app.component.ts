@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { CustomButtonComponent } from './components/custom-button/custom-button.component'; // ✅ Import it
-import { ValueDisplayComponent } from './value-display/value-display.component'; // Import the new component
+import { ValueDisplayComponent } from './components/value-display/value-display.component'; // Import the new component
 
 @Component({
   selector: 'app-root',
