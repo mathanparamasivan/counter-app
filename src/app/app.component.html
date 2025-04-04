@@ -1,15 +1,3 @@
-<div class="button-container">
-  <app-custom-button 
-    label="Increment"
-    color="blue"
-    (buttonClick)="onSubmitClick()">
-  </app-custom-button>
-
-  <app-custom-button 
-    label="Decrement"
-    color="blue"
-    (buttonClick)="onSubmitClick()">
-  </app-custom-button>
-</div>
-
-<app-value-display></app-value-display>
+<app-value-display [counter]="counter"></app-value-display>
+<app-counter-buttons (increment)="incrementCounter()" 
+(decrement)="decrementCounter()"></app-counter-buttons>

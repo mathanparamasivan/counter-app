@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 
 @Component({
   selector: 'app-value-display',
@@ -7,9 +7,5 @@ import { Component } from '@angular/core';
   styleUrls: ['./value-display.component.css']
 })
 export class ValueDisplayComponent {
-  counterValue: string = ''; // Variable to hold the text
-
-  onButtonClick() {
-    this.counterValue = 'Button was clicked!'; // Update text on button click
-  }
+  @Input() counter: number = 0; // ✅ Receive counter value from parent
 }
