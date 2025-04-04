@@ -1,2 +1,8 @@
-
+.button-container {
+    display: flex;
+    justify-content: center; /* Center the buttons */
+    gap: 100px; /* Reduce space between buttons */
+    align-items: center;
+    margin-top: 20px;
+  }
   
