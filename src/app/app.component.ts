@@ -1,12 +1,12 @@
 import { Component } from '@angular/core';
 import { CustomButtonComponent } from './components/custom-button/custom-button.component'; // ✅ Import it
-
+import { ValueDisplayComponent } from './value-display/value-display.component'; // Import the new component
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   standalone: true, 
-  imports: [CustomButtonComponent],
+  imports: [ValueDisplayComponent, CustomButtonComponent],
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {

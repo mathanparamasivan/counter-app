@@ -1,5 +1,4 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-
 import { ValueDisplayComponent } from './value-display.component';
 
 describe('ValueDisplayComponent', () => {
