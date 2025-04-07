@@ -10,6 +10,7 @@ import { ValueDisplayComponent } from './components/value-display/value-display.
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
+  title = "counter-app";
   counter = 0;
 
   incrementCounter() {
