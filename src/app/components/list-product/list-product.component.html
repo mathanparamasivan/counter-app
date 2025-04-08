@@ -5,4 +5,7 @@
       (buttonClick)="getProducts()">
     </app-custom-button>
 </div>
-{{productsList}}
+<div *ngFor="let product of productList">
+  <p>{{ product.productName }} - ₹{{ product.price }}</p>
+  <p><small>Sold by: {{ product.sellerName }}</small></p>
+</div>
