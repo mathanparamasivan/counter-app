@@ -1,5 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CustomButtonComponent } from '../custom-button/custom-button.component';
+import { CommonModule } from '@angular/common';
+import { ProductService, Product } from '../../services/product.service';
 import { Observable, fromEvent, Subject, 
   BehaviorSubject, ReplaySubject , AsyncSubject,
    of, from, interval, timer, throwError, EMPTY} from 'rxjs';
@@ -10,11 +12,29 @@ import { map, tap, pluck, scan, filter, take, delay,
 
 @Component({
   selector: 'app-list-product',
-  imports: [CustomButtonComponent],
+  imports: [CustomButtonComponent, CommonModule],
+  standalone: true,
   templateUrl: './list-product.component.html',
   styleUrl: './list-product.component.css'
 })
 export class ListProductComponent {
+
+  products$!: Observable<Product[]>;
+  productList:Product[] = [];
+
+  constructor(private productService: ProductService) {}
+
+  ngOnInit(): void {
+    this.products$ = this.productService.getAllProducts();
+  }
+
+  getProducts(){
+      //this.observableSamples();
+     //this.operatorSamples();
+     //this.utilityOperators();
+     this.products$.subscribe(products => this.productList = products);
+     //console.log(this.products$);
+   }
 
   observableSamples(){
     window.alert("test");
@@ -164,11 +184,5 @@ export class ListProductComponent {
       timeInterval()
     ).subscribe(x => console.log(x));
 
-  }
-
-  getProducts(){
-   // this.observableSamples();
-    //this.operatorSamples();
-    this.utilityOperators();
   }
 }
