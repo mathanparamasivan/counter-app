@@ -1,27 +1,12 @@
 import { Component } from '@angular/core';
 import { CustomButtonComponent } from '../custom-button/custom-button.component';
-import { Observable } from 'rxjs';
-import { fromEvent } from 'rxjs';
-import { Subject } from 'rxjs';
-import { BehaviorSubject } from 'rxjs';
-import { ReplaySubject } from 'rxjs';
-import { AsyncSubject } from 'rxjs';
-import { of } from 'rxjs';
-import { from } from 'rxjs';
-import { map } from 'rxjs/operators';
-import { pluck } from 'rxjs/operators';
-import { scan } from 'rxjs/operators';
-import { filter } from 'rxjs/operators';
-import { take } from 'rxjs/operators';
-import { debounceTime} from 'rxjs/operators';
-import { mergeMap } from 'rxjs/operators';
-import { switchMap } from 'rxjs/operators';
-import { interval } from 'rxjs';
-import { timer } from 'rxjs';
-import { throwError } from 'rxjs';
-import { retry, catchError } from 'rxjs/operators';
-
-
+import { Observable, fromEvent, Subject, 
+  BehaviorSubject, ReplaySubject , AsyncSubject,
+   of, from, interval, timer, throwError, EMPTY} from 'rxjs';
+import { map, tap, pluck, scan, filter, take, delay,
+   debounceTime, mergeMap, switchMap, retry, catchError,
+    finalize, timeout, timestamp, defaultIfEmpty, 
+    isEmpty, repeat, toArray, timeInterval } from 'rxjs/operators';
 
 @Component({
   selector: 'app-list-product',
@@ -94,8 +79,12 @@ export class ListProductComponent {
     // from operator
     from([10, 20, 30]).subscribe(console.log); // Output: 10, 20, 30
 
-    // map operator
-    of(1,2,3).pipe(map(val=>val*10)).subscribe(console.log);
+    // map operator - tap for logging
+    of(1,2,3).pipe(tap(val => console.log("Before: " + val)),
+      map(val => val*10),
+      tap(val => console.log("After: " + val)),
+      finalize(() => console.log("stream done"))
+    ).subscribe(console.log);
     
     // pluck 
     of({name:"john", age:20}, {name:"joseph", age:25}).pipe(pluck('name')).subscribe(console.log);
@@ -140,8 +129,46 @@ export class ListProductComponent {
 
   }
 
+  utilityOperators(){
+    of('Hello').pipe(
+      delay(2000)
+    ).subscribe(console.log);
+
+    of('data').pipe(
+      delay(2000),
+      timeout(1000)
+    ).subscribe(console.log, err => console.error('Timeout:', err));
+
+    of('A', 'B').pipe(
+      timestamp()
+    ).subscribe(console.log);   
+
+    EMPTY.pipe(
+      defaultIfEmpty('No Data')
+    ).subscribe(console.log); // Output: 'No Data'
+
+    EMPTY.pipe(
+      isEmpty()
+    ).subscribe(console.log); //
+
+    of('Hi').pipe(
+      repeat(3)
+    ).subscribe(console.log); // Output: Hi, Hi, Hi
+
+    of(1, 2, 3).pipe(
+      toArray()
+    ).subscribe(console.log); // Output: [1, 2, 3]
+
+    interval(1000).pipe(
+      take(3),
+      timeInterval()
+    ).subscribe(x => console.log(x));
+
+  }
+
   getProducts(){
    // this.observableSamples();
-    this.operatorSamples();
+    //this.operatorSamples();
+    this.utilityOperators();
   }
 }
