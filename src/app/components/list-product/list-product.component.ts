@@ -6,6 +6,20 @@ import { Subject } from 'rxjs';
 import { BehaviorSubject } from 'rxjs';
 import { ReplaySubject } from 'rxjs';
 import { AsyncSubject } from 'rxjs';
+import { of } from 'rxjs';
+import { from } from 'rxjs';
+import { map } from 'rxjs/operators';
+import { pluck } from 'rxjs/operators';
+import { scan } from 'rxjs/operators';
+import { filter } from 'rxjs/operators';
+import { take } from 'rxjs/operators';
+import { debounceTime} from 'rxjs/operators';
+import { mergeMap } from 'rxjs/operators';
+import { switchMap } from 'rxjs/operators';
+import { interval } from 'rxjs';
+import { timer } from 'rxjs';
+import { throwError } from 'rxjs';
+import { retry, catchError } from 'rxjs/operators';
 
 
 
@@ -70,12 +84,64 @@ export class ListProductComponent {
     asyncSubject.next(1);
     asyncSubject.next(2);
     asyncSubject.complete(); // Only now emits "2"
+  }
 
+  operatorSamples() {
+    console.log("operator samples");
+    // of operator
+    of(1, 2, 3).subscribe(console.log); // Output: 1, 2, 3
 
+    // from operator
+    from([10, 20, 30]).subscribe(console.log); // Output: 10, 20, 30
+
+    // map operator
+    of(1,2,3).pipe(map(val=>val*10)).subscribe(console.log);
+    
+    // pluck 
+    of({name:"john", age:20}, {name:"joseph", age:25}).pipe(pluck('name')).subscribe(console.log);
+    
+    // scan -> similar to reduce
+    of(1,2,3).pipe(scan((acc,val)=> acc + val, 0)).subscribe(console.log)
+
+    // filter operator
+    of(1,2,3,4,5).pipe(filter(val=>val%2==0)).subscribe(console.log);
+    
+    // take operator
+    of(11,21,31,41).pipe(take(2)).subscribe(console.log);
+
+    // merge map/flatmap
+    of('A', 'B', 'C').pipe(mergeMap(val=>of(val+"1", val+"2")))
+    .subscribe(console.log);
+    
+    // Debounce time - keyboard typing wait for 3 sec and then shoot server request
+    fromEvent(document, 'click').pipe(
+      debounceTime(10000),
+      map(event => 'Clicked!')
+    ).subscribe(console.log);
+
+    // switch map - clears all previous event emits
+    fromEvent(document, 'click').pipe(
+      switchMap(() => interval(1000))
+    ).subscribe(console.log);
+
+    // emits event with gap/delay
+    timer(2000).subscribe(() => console.log('After 2 seconds'));
+
+    // Catching error
+    throwError('Fail').pipe(
+      catchError(err => of('Error caught'))
+    ).subscribe(console.log); // Output: Fallback
+
+    // Retry
+    throwError('Fail').pipe(
+      retry(3),
+      catchError(err => of('Fallback'))
+    ).subscribe(console.log); // Output: Fallback
 
   }
 
   getProducts(){
-    this.observableSamples();
+   // this.observableSamples();
+    this.operatorSamples();
   }
 }
