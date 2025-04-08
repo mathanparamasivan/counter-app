@@ -8,7 +8,7 @@ import { Observable, fromEvent, Subject,
 import { map, tap, pluck, scan, filter, take, delay,
    debounceTime, mergeMap, switchMap, retry, catchError,
     finalize, timeout, timestamp, defaultIfEmpty, 
-    isEmpty, repeat, toArray, timeInterval } from 'rxjs/operators';
+    isEmpty, repeat, toArray, timeInterval, takeUntil } from 'rxjs/operators';
 
 @Component({
   selector: 'app-list-product',
@@ -21,6 +21,7 @@ export class ListProductComponent {
 
   products$!: Observable<Product[]>;
   productList:Product[] = [];
+  private destroy$ = new Subject<void>();
 
   constructor(private productService: ProductService) {}
 
@@ -32,7 +33,7 @@ export class ListProductComponent {
       //this.observableSamples();
      //this.operatorSamples();
      //this.utilityOperators();
-     this.products$.subscribe(products => this.productList = products);
+     this.products$.pipe(takeUntil(this.destroy$)).subscribe(products => this.productList = products);
      //console.log(this.products$);
    }
 
