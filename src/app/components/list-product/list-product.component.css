@@ -16,6 +16,8 @@
   .product-table {
     width: 100%;
     border-collapse: collapse;
+    margin-top: 20px; /* or 2rem, or whatever suits your layout */
+
   }
   
   .product-table th,
