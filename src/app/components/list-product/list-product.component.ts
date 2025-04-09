@@ -21,9 +21,9 @@ export class ListProductComponent {
 
   products$!: Observable<Product[]>;
   productList:Product[] = [
-    { id:1, productName: 'iPhone', price: 80000 , sellerName:'test'},
-    { id:2, productName: 'Samsung', price: 65000 , sellerName:'test'},
-    { id:3,productName: 'Pixel', price: 72000, sellerName:'test' },
+    // { id:1, productName: 'iPhone', price: 80000 , sellerName:'test'},
+    // { id:2, productName: 'Samsung', price: 65000 , sellerName:'test'},
+    // { id:3,productName: 'Pixel', price: 72000, sellerName:'test' },
   ];
   private destroy$ = new Subject<void>();
 
@@ -37,7 +37,6 @@ export class ListProductComponent {
       //this.observableSamples();
      //this.operatorSamples();
      //this.utilityOperators();
-     window.alert("test");
      this.productService.getAllProducts()
      .pipe(takeUntil(this.destroy$))
      .subscribe({
