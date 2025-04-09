@@ -1,4 +1,6 @@
 import { Component, Input } from '@angular/core';
+import { NgIf } from '@angular/common';
+
 
 @Component({
   selector: 'app-value-display',
@@ -7,5 +9,17 @@ import { Component, Input } from '@angular/core';
   styleUrls: ['./value-display.component.css']
 })
 export class ValueDisplayComponent {
-  @Input() counter: number = 0; // ✅ Receive counter value from parent
+  @Input() counter: number = 0;
+
+  ngAfterViewInit(): void {
+    console.log("view init done");
+  }
+
+  ngOnChanges(): void {
+    console.log("change detected");
+  }
+
+  ngOnDestroy(): void {
+    console.log("destroy");
+  }
 }
