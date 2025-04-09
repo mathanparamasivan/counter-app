@@ -17,7 +17,9 @@
     </thead>
     <tbody>
       <tr *ngFor="let product of productList">
-        <td>{{ product.productName }}</td>
+        <td>
+          {{ product.productName | uppercase | slice:0:3 }}
+        </td>
         <td>{{ product.price }}</td>
         <td>{{ product.sellerName }}</td>
       </tr>
