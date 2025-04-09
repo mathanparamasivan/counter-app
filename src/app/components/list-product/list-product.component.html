@@ -5,7 +5,23 @@
       (buttonClick)="getProducts()">
     </app-custom-button>
 </div>
-<div  style="text-align: center;" *ngFor="let product of productList">
-  <p>{{ product.productName }} - ₹{{ product.price }}</p>
-  <p><small>Sold by: {{ product.sellerName }}</small></p>
+
+<div>
+  <table class="product-table">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Price</th>
+        <th>Seller</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let product of productList">
+        <td>{{ product.productName }}</td>
+        <td>{{ product.price }}</td>
+        <td>{{ product.sellerName }}</td>
+      </tr>
+    </tbody>
+  </table>
+  
 </div>

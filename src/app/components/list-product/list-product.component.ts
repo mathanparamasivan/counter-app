@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { CustomButtonComponent } from '../custom-button/custom-button.component';
 import { CommonModule } from '@angular/common';
 import { ProductService, Product } from '../../services/product.service';
@@ -20,7 +20,11 @@ import { map, tap, pluck, scan, filter, take, delay,
 export class ListProductComponent {
 
   products$!: Observable<Product[]>;
-  productList:Product[] = [];
+  productList:Product[] = [
+    { id:1, productName: 'iPhone', price: 80000 , sellerName:'test'},
+    { id:2, productName: 'Samsung', price: 65000 , sellerName:'test'},
+    { id:3,productName: 'Pixel', price: 72000, sellerName:'test' },
+  ];
   private destroy$ = new Subject<void>();
 
   constructor(private productService: ProductService) {}
@@ -33,8 +37,21 @@ export class ListProductComponent {
       //this.observableSamples();
      //this.operatorSamples();
      //this.utilityOperators();
-     this.products$.pipe(takeUntil(this.destroy$)).subscribe(products => this.productList = products);
-     //console.log(this.products$);
+     window.alert("test");
+     this.productService.getAllProducts()
+     .pipe(takeUntil(this.destroy$))
+     .subscribe({
+       next: (products) => {
+         this.productList = products;
+         console.log('Fetched products:', products);
+       },
+       error: (err) => {
+         console.error('Failed to fetch products', err);
+       }
+     });
+     console.log(this.productList);
+     console.log(this.products$);
+
    }
 
   observableSamples(){

@@ -1,5 +1,5 @@
-<app-value-display [counter]="counter" *ngIf=true></app-value-display>
-<!-- add this to try ng destroy "counter % 2 === 0"-->
+<app-value-display [counter]="counter" ></app-value-display>
+<!-- add this to try ng destroy *ngIf=true "counter % 2 === 0"-->
 <app-counter-buttons (increment)="incrementCounter()" 
 (decrement)="decrementCounter()"></app-counter-buttons>
 <app-list-product></app-list-product>
