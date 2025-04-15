@@ -21,8 +21,8 @@
           <!-- {{ product.productName | uppercase | slice:0:3 }} -->
           {{ product.productName }}
         </td>
-        <td>{{ product.price }}</td>
-        <td>{{ product.sellerName }}</td>
+        <td>{{ product.price | rupeeSymbol}}</td>
+        <td>{{ product.seller.sellerName | prefixGenerator: product.seller.gender:  product.seller.married }}</td>
       </tr>
     </tbody>
   </table>

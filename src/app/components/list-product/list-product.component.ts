@@ -2,6 +2,9 @@ import { Component } from '@angular/core';
 import { CustomButtonComponent } from '../custom-button/custom-button.component';
 import { CommonModule } from '@angular/common';
 import { ProductService, Product } from '../../services/product.service';
+import {RupeeSymbolPipe} from '../../pipes/rupee-symbol.pipe';
+import {PrefixGeneratorPipe} from '../../pipes/prefix-generator.pipe'; 
+
 import { Observable, fromEvent, Subject, 
   BehaviorSubject, ReplaySubject , AsyncSubject,
    of, from, interval, timer, throwError, EMPTY} from 'rxjs';
@@ -12,7 +15,7 @@ import { map, tap, pluck, scan, filter, take, delay,
 
 @Component({
   selector: 'app-list-product',
-  imports: [CustomButtonComponent, CommonModule],
+  imports: [CustomButtonComponent, CommonModule, RupeeSymbolPipe, PrefixGeneratorPipe],
   standalone: true,
   templateUrl: './list-product.component.html',
   styleUrl: './list-product.component.css'

@@ -6,8 +6,15 @@ export interface Product {
   id: number;
   productName: string;
   price: number;
-  sellerName: string;
+  seller: Seller;
 }
+
+export interface Seller {
+  sellerName: string;
+  gender: string;
+  married: boolean;
+}
+
 
 @Injectable({
   providedIn: 'root'
